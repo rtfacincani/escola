@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('newbootstrap');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/newpage',function(){
+    return view('newbootstrap');
+});
