@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.plane')
 
-@section('content')
+@section('body')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -8,7 +8,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    Você está logado agora!
+                    You are logged in!
                 </div>
             </div>
         </div>
