@@ -24,6 +24,8 @@ Route::group(['middleware' => ['web']], function() {
     Route::resource('medicamento','medicamentoController');
 });
 
+Route::get('/getPDF','PDFController@getPDF');
+
 
 Route::get('/charts', function()
 {
