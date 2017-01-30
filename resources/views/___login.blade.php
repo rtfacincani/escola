@@ -1,3 +1,13 @@
+<!-- @include('widgets.button', array('class'=>'primary fa fa-pencil', 'size'=>'sm', 'value'=>' Alterar'))</a> -->
+
+<form class="" action="{{route('medicamento.destroy',$med->id)}}" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+    <input type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Você tem certeza que deseja excluir?');" name="name" value=" Remover">
+</form>
+
+
 @extends ('layouts.plane')
 @section ('body')
 <div class="container">

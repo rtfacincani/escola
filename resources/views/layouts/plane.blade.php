@@ -19,5 +19,7 @@
 	<script src="{{ asset("assets/scripts/frontend.js") }}" type="text/javascript"></script>
 	<script src="{{ asset("assets/scripts/jsfiddle.js") }}" type="text/javascript"></script>
 
+
+
 </body>
 </html>

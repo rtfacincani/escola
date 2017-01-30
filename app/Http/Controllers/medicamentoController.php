@@ -8,6 +8,10 @@ use App\Http\Requests;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Maatwebsite\Excel;
+
+
+
 
 class medicamentoController extends Controller
 {
@@ -16,12 +20,37 @@ class medicamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function medinfo()
+    {
+        $search = \Request::get('search');
+        $medicamentos = Medicamento::where('Nome','like','%'.$search.'%')->orderBy('id')->paginate(10);
+      //$medicamentos = Medicamento::all();
+        //$medicamentos =  Medicamento::all();
+
+      return view('cadastro.medicamento.index',['medicamentos' => $medicamentos]);
+    }
+
     public function index()
     {
         $search = \Request::get('search');
-        $medicamentos = Medicamento::where('Nome','like','%'.$search.'%')->orderBy('id')->paginate(7);
+        $medicamentos = Medicamento::where('Nome','like','%'.$search.'%')->orderBy('id')->paginate(15);
         //$medicamentos =  Medicamento::all();
         return view('cadastro.medicamento.index',['medicamentos' => $medicamentos]);
+    }
+
+    public function exportar(){
+        $exportar = Medicamento::select('id as ID','Nome','created_at as Criado','updated_at as Atualizado')->get();
+        \Excel::create('Tabela de Medicamentos', function($excel) use($exportar){
+            $excel->sheet('Medicamentos',function($sheet) use($exportar){
+                $sheet->fromArray($exportar);
+            });
+        })->export('xlsx');
     }
 
     /**
@@ -31,7 +60,7 @@ class medicamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastro.medicamento.registermed');
     }
 
     /**

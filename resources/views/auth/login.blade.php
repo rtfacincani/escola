@@ -45,6 +45,17 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-12 ">
+                                    <button type="submit" class="btn btn-lg btn-success btn-block">
+                                        Logar
+                                    </button>
+
+                                    <a class="btn btn-link" href="{{ url('/register') }}">
+                                        <h5 style="align-self: center">Novo Registro</h5>
+                                    </a>
+                                </div>
+                            </div>
                         </fieldset>
                     </form>
             </div   >

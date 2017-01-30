@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <br /><br /><br />
-                @section ('login_panel_title','Por favor informe os dados')
+                @section ('login_panel_title','<center>Nova Escola<br>Por favor informe os dados</center>')
                 @section ('login_panel_body')
                     <div class="panel-body" >
                     <form role="form" method="POST" action="{{ url('/login') }}">
@@ -13,7 +13,10 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <fieldset>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" id="email" value="{{ old('email') }}" autofocus required="required"/>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email" id="email" value="{{ old('email') }}" autofocus required="required"/>
+                                </div>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -21,7 +24,10 @@
                                 @endif
                             </div>
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <input class="form-control" placeholder="Senha" name="password" type="password" value="" required="required">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                                    <input class="form-control" placeholder="Senha" name="password" type="password" value="" required="required">
+                                </div>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>

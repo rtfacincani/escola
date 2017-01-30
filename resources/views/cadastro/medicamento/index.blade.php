@@ -1,56 +1,90 @@
 @extends('layouts.dashboard')
-@section ('page_heading','Medicamentos')
-@section ('section')
-        <table class="table table-striped">
-            <tr>
-                <th>No.</th>
-                <th>Nome do Remédio</th>
-                <th>Ações</th>
-            </tr>
-            <a href="{{route('medicamento.create')}}">
-                @include('widgets.button', array('class'=>'success btn-success fa fa-plus', 'size'=>'lg','value'=>' Novo Medicamento'))</a>
-            <div class="col-md-3">
-                {!! Form::open(['method'=>'GET','url'=>'medicamento','class'=>'navbar-form navbar-left','role'=>'search']) !!}
-                <div class="input-group custom-search-form">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Pesquise ....">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default-sm">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+@section('section')
+    <style type="text/css">
+        .none a{text-decoration: none}
+        .cabecalho {text-align: center}
+        thead tr th{
+            background-color: #6b9dbb;
+            color: white;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title"><i class="fa fa fa-heartbeat fa-fw"></i> Medicamentos</h2>
+            </div>
+            <div class="panel-body col-md-12">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <form action="medicamento" method="get" role="search">
+                                <div class="input-group custom-search-form">
+                                    <span class="input-group-btn">
+                                        <input type="text" name="search" class="form-control" id="search" placeholder="Pesquise pelo Nome"/>
+                                        <button type="submit" class="btn btn-default-sm">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <a href="{{'/cadmed'}}"<button type="button" class="btn btn-success" ><i class="fa fa-plus"></i> Novo Medicamento</button></a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info"><i class="fa fa-download"></i> Exportar</button>
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggole Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" id="export-menu">
+                                <li id="export-to-pdf"><a href="{{URL::to('getPDF')}}"><i class="fa fa-file-pdf-o"></i> para PDF</a></li>
+                                <li id="export-to-excel"><a href="{{URL::to('export')}}"><i class="fa fa-file-excel-o"></i> para Excel</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                {!! Form::close() !!}
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Nome do Medicamento
+                                </th>
+                                <th class="cabecalho">
+                                    <i class="glyphicon glyphicon-cog"></i> Ações
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($medicamentos as $key => $med)
+                                <tr>
+                                    <td class="col-md-1" id="medid{{$med->id}}">{{$med->id}}</td>
+                                    <td class="col-md-8" id="medid{{$med->Nome}}">{{$med->Nome}}</td>
+                                    <td class="none col-md-3" align="center">
+                                        <div class="btn-toolbar">
+                                            <a href="#" class="btn btn-xs btn-info" data-id="{{$med->id}}"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
+                                            <a href="#" class="btn btn-xs btn-primary" data-id="{{$med->id}}"><i class="glyphicon glyphicon-pencil"></i> Alterar</a>
+                                            <a href="#" class="btn btn-xs btn-danger" data-id="{{$med->id}}"><i class="glyphicon glyphicon-trash"></i> Remover</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="3"><center>{!! $medicamentos->links('layouts.pagination') !!}</center></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-info"><i class="fa fa-download"></i> Exportar</button>
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggole Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" role="menu" id="export-menu">
-                    <li id="export-to-pdf"><a href="{{URL::to('getPDF')}}"><i class="fa fa-file-pdf-o"></i> Exportar para PDF</a></li>
-                    <li id="export-to-excel"><a href="{{URL::to('getExcel')}}"><i class="fa fa-file-excel-o"></i> Exportar para Excel</a></li>
-                </ul>
-            </div>
-            <p></p>
-            <?php $no=1; ?>
-            @foreach($medicamentos as $med)
-                <tr>
-                    <td>{{$no++}}</td>
-                    <td>{{$med->Nome}}</td>
-                    <td>
-                        <form class="" action="{{route('medicamento.destroy',$med->id)}}" method="post">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <a href="{{route('medicamento.edit',$med->id)}}"
-                                @include('widgets.button', array('class'=>'primary fa fa-pencil', 'size'=>'sm', 'value'=>' Alterar'))</a>
-                            <input type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Você tem certeza que deseja excluir?');" name="name" value=" Remover">
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-
-        </table>
+        </div>
     </div>
-    <center>{!! $medicamentos->links('layouts.pagination') !!}</center>
-@stop
+@endsection
