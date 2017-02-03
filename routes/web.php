@@ -16,12 +16,10 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/medindex','medicamentoController@index');
-Route::get('/cadmed','medicamentoController@create');
 
 Auth::routes();
 
-
+Route::resource('med','medicamentoController');
 Route::get('/home', 'HomeController@index');
 Route::get('/logout', 'Auth\\LoginController@logout');
 
@@ -31,6 +29,9 @@ Route::group(['middleware' => ['web']], function() {
 
 Route::get('/getPDF','PDFController@getPDF');
 Route::get('/export','medicamentoController@exportar');
+Route::get('/medindex','medicamentoController@index');
+Route::get('/cadmed','medicamentoController@create');
+Route::post('/storemed','medicamentoController@store');
 
 
 

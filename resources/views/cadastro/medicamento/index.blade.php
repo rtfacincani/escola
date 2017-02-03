@@ -15,7 +15,15 @@
             </div>
             <div class="panel-body col-md-12">
                 <div class="row">
-                    <div class="col-md-7">
+                    @if (Session::has('message'))
+                          <div class="alert alert-success fade in">
+                              <a href="#" class="close" data-dismiss="alert">&times;</a>
+                              <strong>Sucesso!</strong> {{ Session::get('message') }}
+                          </div>
+                    @endif
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <form action="medicamento" method="get" role="search">
                                 <div class="input-group custom-search-form">
@@ -30,8 +38,8 @@
                         </div>
                     </div>
                     <div class="col-md-1"></div>
-                    <div class="col-md-4">
-                        <a href="{{'/cadmed'}}"<button type="button" class="btn btn-success" ><i class="fa fa-plus"></i> Novo Medicamento</button></a>
+                    <div class="col-md-5">
+                        <a href="{{ route('med.create')}}"> <button type="button" class="btn btn-success" ><i class="fa fa-plus"></i> Novo Medicamento</button></a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-info"><i class="fa fa-download"></i> Exportar</button>
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -65,13 +73,18 @@
                             @foreach($medicamentos as $key => $med)
                                 <tr>
                                     <td class="col-md-1" id="medid{{$med->id}}">{{$med->id}}</td>
-                                    <td class="col-md-8" id="medid{{$med->Nome}}">{{$med->Nome}}</td>
-                                    <td class="none col-md-3" align="center">
+                                    <td class="col-md-9" id="medid{{$med->Nome}}">{{$med->Nome}}</td>
+                                    <td class="none col-md-2" align="center">
                                         <div class="btn-toolbar">
-                                            <a href="#" class="btn btn-xs btn-info" data-id="{{$med->id}}"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
-                                            <a href="#" class="btn btn-xs btn-primary" data-id="{{$med->id}}"><i class="glyphicon glyphicon-pencil"></i> Alterar</a>
-                                            <a href="#" class="btn btn-xs btn-danger" data-id="{{$med->id}}"><i class="glyphicon glyphicon-trash"></i> Remover</a>
+                                            {{ Form::open(array('url' => 'med/' . $med->id)) }}
+                                            {{ Form::hidden('_method', 'DELETE') }}
+                                            <a href="{{ URL::to('med/' . $med->id) }}" class="btn btn-xs btn-info" data-id="{{$med->id}}" data-toggle="tooltip" title="Visualizar"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                            <a href="#" class="btn btn-xs btn-primary" data-id="{{$med->id}}" data-toggle="tooltip" title="Alterar"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['class'=>'btn btn-xs btn-danger', 'data-toggle'=>'tooltip','title'=>'Excluir','type'=>'submit']) !!}
+                                            {{ Form::close() }}
                                         </div>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -87,4 +100,7 @@
             </div>
         </div>
     </div>
+    <script>
+        $('[data-toggle="tooltip"]').tooltip();
+    </script>
 @endsection
