@@ -8,7 +8,7 @@ Use App\Models\Medicamento;
 
 class PDFController extends Controller
 {
-    function getPDF(){
+    public function getPDF(){
         $medicamentos = medicamento::all();
 
         $pdf=PDF::loadview('pdf.medicamentos',['medicamentos'=>$medicamentos]);

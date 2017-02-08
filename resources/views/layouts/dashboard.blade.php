@@ -254,7 +254,7 @@
                                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#"><i class="fa fa fa-child fa-fw"></i> Alunos</a>
+                                        <a href="/alunos"><i class="fa fa fa-child fa-fw"></i> Alunos</a>
                                     </li>
                                     <li>
                                         <a href="/medicamento"><i class="fa fa fa-heartbeat fa-fw"></i> Medicamentos</a>

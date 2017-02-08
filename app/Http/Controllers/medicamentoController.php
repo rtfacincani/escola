@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Medicamento;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+//use Illuminate\Http\Response;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -122,7 +122,11 @@ class medicamentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        // get the nerd
+        $med = Medicamento::find($id);
+
+        // show the edit form and pass the nerd
+        return View('cadastro.medicamento.edit',['med'=>$med]);
     }
 
     /**
@@ -134,7 +138,26 @@ class medicamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dadosformulario = $request->all(); //$request->all();   // $request->except('_token');
+        $regras = array('Nome' => 'required|min:5|max:150');
+        $validacao = Validator::make($dadosformulario,$regras);
+        //dd($dadosformulario);
+        //dd('entrei');
+
+        if ($validacao->fails()) {
+            //return 'Dados Inválidos';
+            return Redirect::to('/med/'.$id.'/edit')
+                ->withErrors($validacao)
+                ->withInput();
+        }
+        else{
+            $med = Medicamento::find($id);
+            $med->Nome = Input::get('Nome');
+            $med->save();
+            Session::flash('message', 'Medicamento No.: '.$med->id.' alterado!');
+            return redirect()->route('med.index');
+        }
+
     }
 
     /**

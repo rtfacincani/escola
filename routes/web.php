@@ -20,6 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('med','medicamentoController');
+//Route::resource('nerds', 'NerdController');
+Route::group(['middleware'=>['web']],function(){
+    Route::resource('alunos','alunosController');
+    Route::get('alunos/pdf',['uses'=>'alunosController@alunopdf', 'as' => 'alunos.pdf']);
+    Route::get('alunos/xlsx',['uses'=>'alunosController@exportar', 'as' => 'alunos.xlsx']);
+});
+
+//Route::get('/alunos/create','alunosConroller@create');
 Route::get('/home', 'HomeController@index');
 Route::get('/logout', 'Auth\\LoginController@logout');
 
