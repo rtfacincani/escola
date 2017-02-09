@@ -24,7 +24,6 @@ class alunosController extends Controller
 
 
     public function exportar(){
-        dd('Entre Exportar');
         $exportar = Aluno::select('Matricula','Nome')->get();
         \Excel::create('Tabela de Alunos', function($excel) use($exportar){
             $excel->sheet('Alunos',function($sheet) use($exportar){
@@ -34,7 +33,7 @@ class alunosController extends Controller
     }
 
     public function alunopdf(){
-        $alunos = Aluno::all();
+        $alunos = Aluno::select('Matricula','Nome')->get();
 
         $pdf=PDF::loadview('pdf.alunos',['alunos'=>$alunos]);
         return $pdf->stream('alunos.pdf');

@@ -21,10 +21,12 @@ Auth::routes();
 
 Route::resource('med','medicamentoController');
 //Route::resource('nerds', 'NerdController');
+Route::get('alunos/xlsx',['uses'=>'alunosController@exportar', 'as' => 'alunos.xlsx']);
+Route::get('alunos/pdf',['uses'=>'alunosController@alunopdf', 'as' => 'alunos.pdf']);
 Route::group(['middleware'=>['web']],function(){
     Route::resource('alunos','alunosController');
-    Route::get('alunos/pdf',['uses'=>'alunosController@alunopdf', 'as' => 'alunos.pdf']);
-    Route::get('alunos/xlsx',['uses'=>'alunosController@exportar', 'as' => 'alunos.xlsx']);
+
+
 });
 
 //Route::get('/alunos/create','alunosConroller@create');

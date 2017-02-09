@@ -99,6 +99,8 @@
                                             <a href="{{ URL::to('alunos/' . $al->id . '/edit') }}" class="btn btn-xs btn-primary" data-id="{{$al->id}}" data-toggle="tooltip" title="Alterar"><i class="glyphicon glyphicon-pencil"></i></a>
 
                                             {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['class'=>'btn btn-xs btn-danger', 'data-toggle'=>'tooltip','title'=>'Excluir','type'=>'submit']) !!}
+                                            {!! Form::button('<i class="fa fa-list-alt"></i>', ['class'=>'btn btn-xs btn-warning', 'data-toggle'=>'tooltip','title'=>'Turma','type'=>'submit']) !!}
+                                            {!! Form::button('<i class="fa fa-money"></i>', ['class'=>'btn btn-xs btn-success', 'data-toggle'=>'tooltip','title'=>'Financeiro','type'=>'submit']) !!}
                                             {{ Form::close() }}
                                         </div>
 
