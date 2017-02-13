@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+
 @section('section')
     <div class="container col-md-12">
         <div class="row">
@@ -7,6 +8,7 @@
                     <div class="panel panel-heading">Registro de Aluno</div>
                     <div class="panel panel-body">
                         {!! Form::open(['route'=>'alunos.store','method'=>'POST']) !!}
+                        <input type="hidden" name="_token" value="{{ Session::token() }}">
                         <ul class="nav nav-tabs nav-pills">
                             <li class="active"><a href="#aluno" data-toggle="tab">Dados do Aluno</a></li>
                             <li><a href="#Resp" data-toggle="tab">Responsáveis</a></li>
@@ -75,7 +77,7 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('CEP') ? ' has-error' : '' }}">
-                                            <input type="text" name="cep" id="cep" class="form-control" id="cep" placeholder="CEP" value="{{old('CEP')}}" required="required"/>
+                                            <input type="text" name="cep" id="cep" class="form-control" placeholder="CEP somente números" value="{{old('CEP')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('CEP'))
                                             <span class="help-block">
@@ -86,7 +88,7 @@
 
                                     <div class="col-md-7">
                                         <div class="form-group{{ $errors->has('Endereco') ? ' has-error' : '' }}">
-                                            <input type="text" name="endereco" id="endereco" class="form-control" id="endereco" placeholder="Endereço" value="{{old('Endereco')}}" required="required"/>
+                                            <input type="text" name="rua" id="rua" class="form-control" id="endereco" placeholder="Endereço" value="{{old('Endereco')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('Endereco'))
                                             <span class="help-block">
@@ -134,7 +136,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group{{ $errors->has('Municipio') ? ' has-error' : '' }}">
-                                            <input type="text" name="municipio" id="municipio" class="form-control" id="municipio" placeholder="Município" value="{{old('Municipio')}}" required="required"/>
+                                            <input type="text" name="cidade" id="cidade" class="form-control" id="municipio" placeholder="Município" value="{{old('Municipio')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('Municipio'))
                                             <span class="help-block">
@@ -175,3 +177,37 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    <script type='text/javascript'>
+        $.ajaxSetup({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        });
+        $(document).ready(function(){
+            $("#cep").on('blur', function()
+            {
+
+                value = $(this).val();
+
+                $.post("/alunos/cep", {cep:value}, function(data)
+                {
+                    $("#rua").val('');
+                    $("#bairro").val('');
+                    $("#cidade").val('');
+                    $("#estado").val('');
+                    if (data.sucesso != "0")
+                    {
+                        $("#rua").val(data.rua);
+                        $("#bairro").val(data.bairro);
+                        $("#cidade").val(data.cidade);
+                        $("#estado").val(data.estado);
+                        $('#numero').focus();
+                    }
+                    else{
+                        alert('Cep não localizado!');
+                    }
+                }, 'json');
+            });
+        });
+    </script>
+@stop

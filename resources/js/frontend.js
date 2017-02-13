@@ -24,9 +24,7 @@ var lineChartData = {
         }
     ]
 
-}
-
-
+};
     var cline = document.getElementById("cline").getContext("2d");
     new Chart(cline).Line(lineChartData, {
         responsive: true
@@ -52,7 +50,7 @@ var lineChartData = {
         highlight: "#FFC870",
         label: "Yellow"
     }
-]
+];
 var cpie = document.getElementById("cpie").getContext("2d");
 new Chart(cpie).Pie(pdata, { responsive: true});
 
@@ -75,7 +73,7 @@ var ddata = [
         highlight: "#FFC870",
         label: "Yellow"
     }
-]
+];
 var cdonut = document.getElementById("cdonut").getContext("2d");
 new Chart(cdonut).Doughnut(ddata, { responsive: true});
 
@@ -136,7 +134,7 @@ var bdata = {
         label: "Dark Grey"
     }
 
-]
+];
 
 var cpolar = document.getElementById("cpolar").getContext("2d");
 new Chart(cpolar).PolarArea(podata, { responsive: true});
@@ -160,6 +158,6 @@ new Chart(cpolar).PolarArea(podata, { responsive: true});
                         highlight: "#FFC870",
                         label: "Yellow"
                     }
-                ]
+                ];
                 var cdonut1 = document.getElementById("cdonut1").getContext("2d");
                 new Chart(cdonut1).Doughnut(ddata1, { responsive: true});

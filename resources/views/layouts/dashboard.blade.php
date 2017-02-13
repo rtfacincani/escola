@@ -1,7 +1,5 @@
 @extends('layouts.plane')
 @section('body')
-<
-
  <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -363,6 +361,7 @@
             <!-- /#page-wrapper -->
         </div>
     </div>
+    @yield('script')
 @stop
 
 

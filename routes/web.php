@@ -21,11 +21,16 @@ Auth::routes();
 
 Route::resource('med','medicamentoController');
 //Route::resource('nerds', 'NerdController');
+
 Route::get('alunos/xlsx',['uses'=>'alunosController@exportar', 'as' => 'alunos.xlsx']);
 Route::get('alunos/pdf',['uses'=>'alunosController@alunopdf', 'as' => 'alunos.pdf']);
+Route::post('alunos/cep', 'alunosController@cep');
+/** Route::post('/cep', function(Request $request){
+    $cep = $request;
+    return 'Success! ajax in laravel 5';
+});  */
 Route::group(['middleware'=>['web']],function(){
     Route::resource('alunos','alunosController');
-
 
 });
 

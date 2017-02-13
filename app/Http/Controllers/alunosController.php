@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Models\Aluno;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Input;
+use PDF;
 use Session;
 use Validator;
-//Use Redirect;
 use View;
-use PDF;
+
+//Use Redirect;
 
 class alunosController extends Controller
 {
@@ -37,6 +36,37 @@ class alunosController extends Controller
 
         $pdf=PDF::loadview('pdf.alunos',['alunos'=>$alunos]);
         return $pdf->stream('alunos.pdf');
+    }
+
+    public function cep(Request $request)
+    {
+        $cep = $request->input('cep');
+        $url = "http://cep.republicavirtual.com.br/web_cep.php?formato=xml&cep=".$cep;
+        $reg = simplexml_load_file($url);
+        $dados['sucesso'] = (string) $reg->resultado;
+        $dados['rua']     = (string) $reg->tipo_logradouro.' '.$reg->logradouro;
+        $dados['bairro']  = (string) $reg->bairro;
+        $dados['cidade']  = (string) $reg->cidade;
+        $dados['estado']  = (string) $reg->uf;
+        return $dados;
+    }
+
+    public function cep2x(Request $request){
+        $cep = $request; // $_POST['cep'];
+
+        $reg = simplexml_load_file("http://cep.republicavirtual.com.br/web_cep.php?formato=xml&cep=".$cep);
+
+
+
+        $dados['sucesso'] = (string) $reg->resultado;
+        $dados['rua']     = (string) $reg->tipo_logradouro.' '.$reg->logradouro;
+        $dados['bairro']  = (string) $reg->bairro;
+        $dados['cidade']  = (string) $reg->cidade;
+        $dados['estado']  = (string) $reg->uf;
+
+        //echo json_encode($dados);
+        //Session::flash('message', 'CEP : '.$cep);
+        return Response::json($cep);
     }
 
 
