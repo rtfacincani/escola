@@ -29,7 +29,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-5">
+                                    <div class="col-md-6 ">
                                         <div class="form-group{{ $errors->has('Nome') ? ' has-error' : '' }}">
                                             <input type="text" name="Nome" id="nome_med" class="form-control" id="info" placeholder="Nome do Aluno" value="{{old('Nome')}}" required="required"/>
                                         </div>
@@ -40,9 +40,9 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('DataNascimento') ? ' has-error' : '' }}">
-                                            <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Data de Nascimento" value="{{old('DataNascimento')}}" required="required"/>
+                                            <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('DataNascimento'))
                                             <span class="help-block">
@@ -77,7 +77,7 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('CEP') ? ' has-error' : '' }}">
-                                            <input type="text" name="cep" id="cep" class="form-control" placeholder="CEP somente números" value="{{old('CEP')}}" required="required"/>
+                                            <input type="text" name="cep" id="cep" class="form-control" placeholder="CEP só números" value="{{old('CEP')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('CEP'))
                                             <span class="help-block">
@@ -86,7 +86,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
                                         <div class="form-group{{ $errors->has('Endereco') ? ' has-error' : '' }}">
                                             <input type="text" name="rua" id="rua" class="form-control" id="endereco" placeholder="Endereço" value="{{old('Endereco')}}" required="required"/>
                                         </div>
@@ -97,7 +97,9 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-1">
+                                    <p></p>
+
+                                    <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Numero') ? ' has-error' : '' }}">
                                             <input type="text" name="numero" id="numero" class="form-control" id="numero" placeholder="No." value="{{old('Numero')}}" required="required"/>
                                         </div>
@@ -108,9 +110,7 @@
                                         @endif
                                     </div>
 
-                                    <p></p>
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-10">
                                         <div class="form-group{{ $errors->has('Complemento') ? ' has-error' : '' }}">
                                             <input type="text" name="complemento" id="complemento" class="form-control" id="complemento" placeholder="Complemento" value="{{old('Complemento')}}" required="required"/>
                                         </div>
@@ -121,7 +121,9 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <p></p>
+
+                                    <div class="col-md-4">
                                         <div class="form-group{{ $errors->has('Bairro') ? ' has-error' : '' }}">
                                             <input type="text" name="bairro" id="bairro" class="form-control" id="bairro" placeholder="Bairro" value="{{old('Bairro')}}" required="required"/>
                                         </div>
@@ -131,8 +133,6 @@
                                             </span>
                                         @endif
                                     </div>
-
-                                    <p></p>
 
                                     <div class="col-md-6">
                                         <div class="form-group{{ $errors->has('Municipio') ? ' has-error' : '' }}">
@@ -145,7 +145,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Estado') ? ' has-error' : '' }}">
                                             <input type="text" name="estado" id="estado" class="form-control" id="estado" placeholder="Estado" value="{{old('Estado')}}" required="required"/>
                                         </div>
@@ -159,10 +159,221 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="Resp">
-                                Responsáveis
+                                <p></p>
+                                <div class="col-md-8 ">
+                                    <div class="form-group{{ $errors->has('Mae') ? ' has-error' : '' }}">
+                                        <input type="text" name="mae" id="mae" class="form-control" id="mae" placeholder="Nome da Mãe" value="{{old('Mae')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('Mae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('Mae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('RGMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="rgmae" id="rgmae" class="form-control" id="rgmae" placeholder="RG da Mãe" value="{{old('RGMae')}}" />
+                                    </div>
+                                    @if ($errors->has('RGMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('RGMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('CPFMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="cpfmae" id="cpfmae" class="form-control" id="cpfmae" placeholder="C.P.F. da Mãe" value="{{old('CPFMae')}}" />
+                                    </div>
+                                    @if ($errors->has('CPFMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('CPFMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+
+                                <div class="row"></div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('CelMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="celmae" id="celmae" class="form-control" id="celmae" placeholder="Tel. Celular" value="{{old('CelMae')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('CelMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('CelMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('TelTrabMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="teltrabmae" id="teltrabmae" class="form-control" id="teltrabmae" placeholder="Tel. do Trab." value="{{old('TelTrabMae')}}" />
+                                    </div>
+                                    @if ($errors->has('TelTrabMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('TelTrabMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('RamalTrabMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="ramaltrabmae" id="ramaltrabmae" class="form-control" id="ramaltrabmae" placeholder="Ramal Trab." value="{{old('RamalTrabMae')}}" />
+                                    </div>
+                                    @if ($errors->has('RamalTrabMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('RamalTrabMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <div class="form-group{{ $errors->has('EmailMae') ? ' has-error' : '' }}">
+                                        <input type="text" name="emailmae" id="emailmae" class="form-control" id="emailmae" placeholder="E-mail da Mãe" value="{{old('EmailMae')}}" />
+                                    </div>
+                                    @if ($errors->has('EmailMae'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('EmailMae') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="row nv-line"></div>
+
+                                <p></p>
+                                <div class="col-md-8 ">
+                                    <div class="form-group{{ $errors->has('Pai') ? ' has-error' : '' }}">
+                                        <input type="text" name="pai" id="pai" class="form-control" id="pai" placeholder="Nome do Pai" value="{{old('Pai')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('Pai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('Pai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('RGpai') ? ' has-error' : '' }}">
+                                        <input type="text" name="rgpai" id="rgpai" class="form-control" id="rgpai" placeholder="RG do Pai" value="{{old('RGPai')}}" />
+                                    </div>
+                                    @if ($errors->has('RGPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('RGPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('CPFPai') ? ' has-error' : '' }}">
+                                        <input type="text" name="cpfpai" id="cpfpai" class="form-control" id="cpfpai" placeholder="C.P.F. do Pai" value="{{old('CPFPai')}}" />
+                                    </div>
+                                    @if ($errors->has('CPFPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('CPFPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+
+                                <div class="row"></div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('CelPai') ? ' has-error' : '' }}">
+                                        <input type="text" name="celpai" id="celpai" class="form-control" id="celpai" placeholder="Tel. Celular" value="{{old('CelPai')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('CelPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('CelPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('TelTrabPai') ? ' has-error' : '' }}">
+                                        <input type="text" name="teltrabpai" id="teltrabpai" class="form-control" id="teltrabpai" placeholder="Tel. do Trab." value="{{old('TelTrabPai')}}" />
+                                    </div>
+                                    @if ($errors->has('TelTrabPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('TelTrabPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('RamalTrabPai') ? ' has-error' : '' }}">
+                                        <input type="text" name="ramaltrabpai" id="ramaltrabpai" class="form-control" id="ramaltrabpai" placeholder="Ramal Trab." value="{{old('RamalTrabPai')}}" />
+                                    </div>
+                                    @if ($errors->has('RamalTrabPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('RamalTrabPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <div class="form-group{{ $errors->has('EmailPai') ? ' has-error' : '' }}">
+                                        <input type="text" name="emailpai" id="emailpai" class="form-control" id="emailpai" placeholder="E-mail do Pai" value="{{old('EmailPai')}}" />
+                                    </div>
+                                    @if ($errors->has('EmailPai'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('EmailPai') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+
                             </div>
                             <div class="tab-pane" id="Saude">
-                                Informações de Saúde
+                                <p></p>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('TipoSanguineo') ? ' has-error' : '' }}">
+                                        <input type="text" name="tiposanguineo" id="tiposanguineo" class="form-control" id="tiposanguineo" placeholder="Tipo Sanguineo" value="{{old('TipoSanguineo')}}" />
+                                    </div>
+                                    @if ($errors->has('TipoSanguineo'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('TipoSanguineo') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div class="form-group{{ $errors->has('FatorRH') ? ' has-error' : '' }}">
+                                        <input type="text" name="fatorrh" id="fatorrh" class="form-control" id="fatorrh" placeholder="Fator RH" value="{{old('FatorRH')}}" />
+                                    </div>
+                                    @if ($errors->has('FatorRH'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('FatorRH') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="row"></div>
+
+                                <div class="col-md-6 ">
+                                    <div class="form-group{{ $errors->has('reacao') ? ' has-error' : '' }}">
+                                        <input type="text" name="reacao" id="reacao" class="form-control" id="reacao" placeholder="Possui alguma reação alérgica a algum medicamento?" value="{{old('Pai')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('reacao'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('reacao') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <div class="form-group{{ $errors->has('ReacaoAlergica') ? ' has-error' : '' }}">
+                                        <input type="text" name="reacaoalergica" id="reacaoalergica" class="form-control" id="reacao" placeholder="Qual medicamento?" value="{{old('ReacaoAlergica')}}" required="required"/>
+                                    </div>
+                                    @if ($errors->has('ReacaoAlergica'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('ReacaoAlergica') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
                             </div>
                         </div>
 
