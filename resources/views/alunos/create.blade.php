@@ -42,7 +42,8 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('DataNascimento') ? ' has-error' : '' }}">
-                                            <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/>
+                                            {!! Form::date('DataNascimento', \Carbon\Carbon::setToStringFormat('Y.m.d'),array('required','class' => 'form-control','placeholder'=>'Nascimento')) !!}
+                                            <!-- <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/> -->
                                         </div>
                                         @if ($errors->has('DataNascimento'))
                                             <span class="help-block">
@@ -53,7 +54,8 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Sexo') ? ' has-error' : '' }}">
-                                            <input type="text" name="sexo" id="sexo" class="form-control" id="sexo" placeholder="Sexo" value="{{old('Sexo')}}" required="required"/>
+                                            {!!  Form::select('Sexo', ['F' => 'Feminino', 'M' => 'Masculino'],null,array('required','class' => 'form-control','placeholder'=>'Sexo')) !!}
+                                            <!-- <input type="text" name="sexo" id="sexo" class="form-control" id="sexo" placeholder="Sexo" value="{{old('Sexo')}}" required="required"/> -->
                                         </div>
                                         @if ($errors->has('Sexo'))
                                             <span class="help-block">
@@ -328,9 +330,10 @@
                             <div class="tab-pane" id="Saude">
                                 <p></p>
 
-                                <div class="col-md-2 ">
+                                <div class="col-md-3 ">
                                     <div class="form-group{{ $errors->has('TipoSanguineo') ? ' has-error' : '' }}">
-                                        <input type="text" name="tiposanguineo" id="tiposanguineo" class="form-control" id="tiposanguineo" placeholder="Tipo Sanguineo" value="{{old('TipoSanguineo')}}" />
+                                        {!! Form::select('TipoSanguineo', ['A' => 'Tipo A', 'B' => 'Tipo B','AB'=>'Tipo AB','O'=>'Tipo O'], null, array('required','class' => 'form-control','placeholder'=>'Sel. Tipo Sanguíneo')) !!}
+                                        <!-- <input type="text" name="tiposanguineo" id="tiposanguineo" class="form-control" id="tiposanguineo" placeholder="Tipo Sanguineo" value="{{old('TipoSanguineo')}}" /> -->
                                     </div>
                                     @if ($errors->has('TipoSanguineo'))
                                         <span class="help-block">
@@ -341,7 +344,8 @@
 
                                 <div class="col-md-2 ">
                                     <div class="form-group{{ $errors->has('FatorRH') ? ' has-error' : '' }}">
-                                        <input type="text" name="fatorrh" id="fatorrh" class="form-control" id="fatorrh" placeholder="Fator RH" value="{{old('FatorRH')}}" />
+                                        {!! Form::select('FatorRH', ['+' => 'Positivo', '-' => 'Negativo'], null, array('required','class' => 'form-control','placeholder'=>'Sel. Fator RH')) !!}
+                                        <!-- <input type="text" name="fatorrh" id="fatorrh" class="form-control" id="fatorrh" placeholder="Fator RH" value="{{old('FatorRH')}}" /> -->
                                     </div>
                                     @if ($errors->has('FatorRH'))
                                         <span class="help-block">
@@ -354,7 +358,12 @@
 
                                 <div class="col-md-6 ">
                                     <div class="form-group{{ $errors->has('reacao') ? ' has-error' : '' }}">
-                                        <input type="text" name="reacao" id="reacao" class="form-control" id="reacao" placeholder="Possui alguma reação alérgica a algum medicamento?" value="{{old('Pai')}}" required="required"/>
+                                        {!! Form::label(null, 'Possui reação alérgica a algum medicamento?  ') !!}
+                                        <div class="control-label">
+                                            {!! Form::radio('reacao', '1', (old('reacao') ==  '1'), array('id'=>'reacao')) !!}  Sim
+                                            {!! Form::radio('reacao', '0', (old('reacao') ==  '0'), array('id'=>'reacao')) !!}  Não
+                                        </div>
+                                        <!-- <input type="text" name="reacao" id="reacao" class="form-control" id="reacao" placeholder="Possui alguma reação alérgica a algum medicamento?" value="{{old('Pai')}}" required="required"/> -->
                                     </div>
                                     @if ($errors->has('reacao'))
                                         <span class="help-block">
@@ -365,7 +374,8 @@
 
                                 <div class="col-md-6 ">
                                     <div class="form-group{{ $errors->has('ReacaoAlergica') ? ' has-error' : '' }}">
-                                        <input type="text" name="reacaoalergica" id="reacaoalergica" class="form-control" id="reacao" placeholder="Qual medicamento?" value="{{old('ReacaoAlergica')}}" required="required"/>
+                                        {!! Form::select('ReacaoAlergica',array('class' => 'form-control','placeholder'=>'Medicamento ','' => 'selecione ...'),['medicamento_id' => 'aluno_medicamentos']) !!}
+                                        <!-- <input type="text" name="reacaoalergica" id="reacaoalergica" class="form-control" id="reacao" placeholder="Qual medicamento?" value="{{old('ReacaoAlergica')}}" required="required"/> -->
                                     </div>
                                     @if ($errors->has('ReacaoAlergica'))
                                         <span class="help-block">

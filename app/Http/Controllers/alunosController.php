@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Models\Aluno;
+use App\Models\Medicamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PDF;
@@ -91,7 +92,8 @@ class alunosController extends Controller
     public function create()
     {
         //return route('alunos.create');
-        return View::make('alunos.create');
+        $med = Medicamento::select('id','Nome');
+        return View::make('alunos.create',get_defined_vars());
     }
 
     /**
