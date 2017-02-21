@@ -42,7 +42,7 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('DataNascimento') ? ' has-error' : '' }}">
-                                            {!! Form::date('DataNascimento', \Carbon\Carbon::setToStringFormat('Y.m.d'),array('required','class' => 'form-control','placeholder'=>'Nascimento')) !!}
+                                            {!! Form::date('DataNascimento', \Carbon\Carbon::setToStringFormat('Y.m.d'),array('required','class' => 'form-control','placeholder'=>'Nascimento','id'=>'dtnasc')) !!}
                                             <!-- <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/> -->
                                         </div>
                                         @if ($errors->has('DataNascimento'))
@@ -53,8 +53,16 @@
                                     </div>
 
                                     <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" name="idade" id="idade" class="form-control"  disabled="disabled" value="{{old('idade')}}"/>
+                                        </div>
+                                    </div>
+
+                                    <p></p>
+
+                                    <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Sexo') ? ' has-error' : '' }}">
-                                            {!!  Form::select('Sexo', ['F' => 'Feminino', 'M' => 'Masculino'],null,array('required','class' => 'form-control','placeholder'=>'Sexo')) !!}
+                                            {!!  Form::select('Sexo', ['F' => 'Feminino', 'M' => 'Masculino'],null,array('required','class' => 'form-control','placeholder'=>'Sexo','id'=>'sexo')) !!}
                                             <!-- <input type="text" name="sexo" id="sexo" class="form-control" id="sexo" placeholder="Sexo" value="{{old('Sexo')}}" required="required"/> -->
                                         </div>
                                         @if ($errors->has('Sexo'))
@@ -356,13 +364,10 @@
 
                                 <div class="row"></div>
 
-                                <div class="col-md-6 ">
+                                <div class="col-md-5 ">
                                     <div class="form-group{{ $errors->has('reacao') ? ' has-error' : '' }}">
-                                        {!! Form::label(null, 'Possui reação alérgica a algum medicamento?  ') !!}
-                                        <div class="control-label">
-                                            {!! Form::radio('reacao', '1', (old('reacao') ==  '1'), array('id'=>'reacao')) !!}  Sim
-                                            {!! Form::radio('reacao', '0', (old('reacao') ==  '0'), array('id'=>'reacao')) !!}  Não
-                                        </div>
+                                        {!! Form::label(null, 'Possui reação alérgica a algum medicamento?   ') !!}
+                                        {{ Form::checkbox('reacao', 0, null, ['class' => 'field','id'=>'reacao']) }}
                                         <!-- <input type="text" name="reacao" id="reacao" class="form-control" id="reacao" placeholder="Possui alguma reação alérgica a algum medicamento?" value="{{old('Pai')}}" required="required"/> -->
                                     </div>
                                     @if ($errors->has('reacao'))
@@ -372,16 +377,15 @@
                                     @endif
                                 </div>
 
-                                <div class="col-md-6 ">
-                                    <div class="form-group{{ $errors->has('ReacaoAlergica') ? ' has-error' : '' }}">
-                                        {!! Form::select('ReacaoAlergica',array('class' => 'form-control','placeholder'=>'Medicamento ','' => 'selecione ...'),['medicamento_id' => 'aluno_medicamentos']) !!}
-                                        <!-- <input type="text" name="reacaoalergica" id="reacaoalergica" class="form-control" id="reacao" placeholder="Qual medicamento?" value="{{old('ReacaoAlergica')}}" required="required"/> -->
+                                <div class="col-md-7" id="relmed" style="display: none;">
+                                    <div class="form-group">
+                                        {!! Form::label('labelrel','Relacão de Medicamentos. Marque todos que são alérgicos para o aluno!') !!}<br />
+                                        {!! Form::select('medicamentos[]',
+                                        $medicamentos,
+                                        null,
+                                        ['id'=>'med','class' => 'field input-sm','multiple' => true,
+                                        'placeholder'=>'Selecione o(s) medicamento(s)...'])!!}
                                     </div>
-                                    @if ($errors->has('ReacaoAlergica'))
-                                        <span class="help-block">
-                                                  <strong class="text-danger">{{ $errors->first('ReacaoAlergica') }}</strong>
-                                            </span>
-                                    @endif
                                 </div>
 
                             </div>
@@ -428,7 +432,108 @@
                         alert('Cep não localizado!');
                     }
                 }, 'json');
+
             });
+
+            $("#dtnasc").on('blur', function() {
+                var nasc = $(this).val();
+                var partes = nasc.split("/");
+                var junta = partes[0]+"-"+(partes[1]-1)+"-"+partes[2];
+                var atual = new Date();
+                var mesatual = atual.getMonth();
+                //alert(mesatual+" - "+ (partes[1]-1));
+                if (parseInt(mesatual) == parseInt((partes[1]-1))){
+                    $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' ano(s)');
+                }
+                else
+                {
+                    if ((partes[1]-1) > mesatual)
+                    {
+                        var diferenca = (partes[1]-1) - mesatual;
+                    }
+                    else
+                    {
+                        var diferenca = mesatual - (partes[1]-1);
+                    }
+
+                    if(diferenca > 1)
+                    {
+                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' anos e '+diferenca+' meses');
+                    }
+                    else
+                    {
+                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' anos e '+diferenca+' mês');
+                    }
+                }
+
+                $('#sexo').focus();
+
+            });
+
+            $("#reacao").click(function(evento){
+                if ($("#reacao").is(':checked')){
+                    $("#relmed").css("display", "block");
+                }else{
+                    $("#relmed").css("display", "none");
+                }
+            });
+
+            $("#dtnasc").datepicker({
+                showWeek: true,
+                firstDay: 0,
+                dateFormat: "dd/mm/yy",
+                dayNames: ["Domingo",
+                    "Segunda-Feira",
+                    "Terça-Feira",
+                    "Quarta-Feira",
+                    "Quinta-Feira",
+                    "Sexta-Feira",
+                    "Sábado"],
+                dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
+                monthNames: ["Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"],
+                monthNamesShort: ["Jan",
+                    "Fev",
+                    "Mar",
+                    "Abr",
+                    "Mai",
+                    "Jun",
+                    "Jul",
+                    "Ago",
+                    "Set",
+                    "Out",
+                    "Nov",
+                    "Dez"],
+                showButtonPanel: true,
+                currentText: "Hoje",
+                closeText: "Fechar",
+                weekHeader: "#"
+            });
+
         });
+        function calculateAge(dia, mes, ano) {
+            var dob = new Date(ano, mes, dia);
+            var currentDate = new Date();
+            var age = currentDate.getFullYear() - dob.getFullYear();
+            if(currentDate.getMonth() < dob.getMonth()) {
+                age--;
+            }else if(currentDate.getMonth() == dob.getMonth()){
+                if(currentDate.getDate() < dob.getDate()){
+                    age--;
+                }
+            }
+            return age;
+        }
+
     </script>
 @stop

@@ -92,7 +92,7 @@ class alunosController extends Controller
     public function create()
     {
         //return route('alunos.create');
-        $med = Medicamento::select('id','Nome');
+        $medicamentos = Medicamento::orderBy('Nome')->pluck('Nome','id');
         return View::make('alunos.create',get_defined_vars());
     }
 

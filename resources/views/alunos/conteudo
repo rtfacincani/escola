@@ -68,3 +68,21 @@ var cep = 'cep='+ $('#cep').val();
             <meta name="_token" content="{!! csrf_token() !!}"/>
 
 
+
+                                    <div class="form-group{{ $errors->has('ReacaoAlergica') ? ' has-error' : '' }}">
+                                        {!! Form::select('ReacaoAlergica',array('class' => 'form-control','placeholder'=>'Medicamento ','' => 'selecione ...'),['medicamento_id' => 'aluno_medicamentos']) !!}
+                                        <!-- <input type="text" name="reacaoalergica" id="reacaoalergica" class="form-control" id="reacao" placeholder="Qual medicamento?" value="{{old('ReacaoAlergica')}}" required="required"/> -->
+                                    </div>
+                                    @if ($errors->has('ReacaoAlergica'))
+                                        <span class="help-block">
+                                                  <strong class="text-danger">{{ $errors->first('ReacaoAlergica') }}</strong>
+                                            </span>
+                                    @endif
+
+
+                                    {!! Form::radio('reacao', '1', (old('reacao') ==  '1'), array('id'=>'reacao')) !!}  Sim
+                                                                                {!! Form::radio('reacao', '0', (old('reacao') ==  '0'), array('id'=>'reacao')) !!}  Não
+
+
+
+<link href="{{ URL::asset('js/bootstrap-datepicker.js') }}" rel="stylesheet">

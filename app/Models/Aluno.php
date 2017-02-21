@@ -11,7 +11,7 @@ class Aluno extends Model
     public function medicamentos()
     {
         //return $this->hasMany(Medicamento::class);
-        return $this->belongsToMany(Medicamento::class,'aluno_medicamentos','aluno_id','medicamento_id');
+        return $this->belongsToMany(Medicamento::Class,'aluno_medicamentos','aluno_id','medicamento_id');
     }
     //
 }
