@@ -11,6 +11,7 @@ use PDF;
 use Session;
 use Validator;
 use View;
+use Carbon;
 
 //Use Redirect;
 
@@ -93,7 +94,7 @@ class alunosController extends Controller
     {
         //return route('alunos.create');
         $medicamentos = Medicamento::orderBy('Nome')->pluck('Nome','id');
-        return View::make('alunos.create',get_defined_vars());
+        return View::make('alunos.create',compact('medicamentos')); //get_defined_vars()
     }
 
     /**

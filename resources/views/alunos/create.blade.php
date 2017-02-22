@@ -29,7 +29,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-6 ">
+                                    <div class="col-md-10 ">
                                         <div class="form-group{{ $errors->has('Nome') ? ' has-error' : '' }}">
                                             <input type="text" name="Nome" id="nome_med" class="form-control" id="info" placeholder="Nome do Aluno" value="{{old('Nome')}}" required="required"/>
                                         </div>
@@ -40,10 +40,11 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="row"></div>
+
+                                    <div class="col-md-3">
                                         <div class="form-group{{ $errors->has('DataNascimento') ? ' has-error' : '' }}">
-                                            {!! Form::date('DataNascimento', \Carbon\Carbon::setToStringFormat('Y.m.d'),array('required','class' => 'form-control','placeholder'=>'Nascimento','id'=>'dtnasc')) !!}
-                                            <!-- <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/> -->
+                                            <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/>
                                         </div>
                                         @if ($errors->has('DataNascimento'))
                                             <span class="help-block">
@@ -52,13 +53,11 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <input type="text" name="idade" id="idade" class="form-control"  disabled="disabled" value="{{old('idade')}}"/>
                                         </div>
                                     </div>
-
-                                    <p></p>
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Sexo') ? ' has-error' : '' }}">
@@ -72,8 +71,6 @@
                                         @endif
                                     </div>
 
-                                    <p></p>
-
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('TelResidencial') ? ' has-error' : '' }}">
                                             <input type="text" name="telresidencial" id="telresidencial" class="form-control" id="telresidencial" placeholder="Tel. Residencial" value="{{old('TelResidencial')}}" required="required"/>
@@ -84,6 +81,8 @@
                                             </span>
                                         @endif
                                     </div>
+
+                                    <div class="row"></div>
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('CEP') ? ' has-error' : '' }}">
@@ -96,7 +95,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="form-group{{ $errors->has('Endereco') ? ' has-error' : '' }}">
                                             <input type="text" name="rua" id="rua" class="form-control" id="endereco" placeholder="Endereço" value="{{old('Endereco')}}" required="required"/>
                                         </div>
@@ -106,8 +105,6 @@
                                             </span>
                                         @endif
                                     </div>
-
-                                    <p></p>
 
                                     <div class="col-md-2">
                                         <div class="form-group{{ $errors->has('Numero') ? ' has-error' : '' }}">
@@ -120,6 +117,8 @@
                                         @endif
                                     </div>
 
+                                    <div class="row"></div>
+
                                     <div class="col-md-10">
                                         <div class="form-group{{ $errors->has('Complemento') ? ' has-error' : '' }}">
                                             <input type="text" name="complemento" id="complemento" class="form-control" id="complemento" placeholder="Complemento" value="{{old('Complemento')}}" required="required"/>
@@ -131,7 +130,7 @@
                                         @endif
                                     </div>
 
-                                    <p></p>
+                                    <div class="row"></div>
 
                                     <div class="col-md-4">
                                         <div class="form-group{{ $errors->has('Bairro') ? ' has-error' : '' }}">
@@ -384,7 +383,7 @@
                                         $medicamentos,
                                         null,
                                         ['id'=>'med','class' => 'field input-sm','multiple' => true,
-                                        'placeholder'=>'Selecione o(s) medicamento(s)...'])!!}
+                                        'placeholder'=>'Selecione o(s) medicamento(s)...','size'=>'10'])!!}
                                     </div>
                                 </div>
 
@@ -479,8 +478,10 @@
             });
 
             $("#dtnasc").datepicker({
-                showWeek: true,
+                showWeek: false,
                 firstDay: 0,
+                changeMonth: true,
+                changeYear: true,
                 dateFormat: "dd/mm/yy",
                 dayNames: ["Domingo",
                     "Segunda-Feira",
@@ -517,7 +518,10 @@
                 showButtonPanel: true,
                 currentText: "Hoje",
                 closeText: "Fechar",
-                weekHeader: "#"
+                weekHeader: "#",
+                onClose: function() {
+                    $(this).trigger('blur');
+                }
             });
 
         });
@@ -526,9 +530,11 @@
             var currentDate = new Date();
             var age = currentDate.getFullYear() - dob.getFullYear();
             if(currentDate.getMonth() < dob.getMonth()) {
+                alert('getMonth');
                 age--;
             }else if(currentDate.getMonth() == dob.getMonth()){
                 if(currentDate.getDate() < dob.getDate()){
+                    alert('getDate');
                     age--;
                 }
             }

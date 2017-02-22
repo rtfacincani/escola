@@ -86,3 +86,14 @@ var cep = 'cep='+ $('#cep').val();
 
 
 <link href="{{ URL::asset('js/bootstrap-datepicker.js') }}" rel="stylesheet">
+
+
+
+{!! Form::select('medicamentos[]',
+                                        $medicamentos,
+                                        null,
+                                        ['id'=>'med','class' => 'field input-sm','multiple' => true,
+                                        'placeholder'=>'Selecione o(s) medicamento(s)...'])!!}
+
+\Carbon\Carbon::setToStringFormat('Y.m.d')
+{!! Form::date('DataNascimento',null,array('required','class' => 'form-control','placeholder'=>'Nascimento','id'=>'dtnasc','value'=>"{{old('DataNascimento')}}")) !!}
