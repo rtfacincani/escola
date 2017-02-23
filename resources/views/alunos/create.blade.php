@@ -44,7 +44,12 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group{{ $errors->has('DataNascimento') ? ' has-error' : '' }}">
-                                            <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required"/>
+                                            <div class="input-group date">
+                                                <input type="text" name="dtnasc" id="dtnasc" class="form-control" id="dtnasc" placeholder="Nascimento" value="{{old('DataNascimento')}}" required="required" data-date-end-date="0d"/>
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                         @if ($errors->has('DataNascimento'))
                                             <span class="help-block">
@@ -53,7 +58,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <input type="text" name="idade" id="idade" class="form-control"  disabled="disabled" value="{{old('idade')}}"/>
                                         </div>
@@ -407,61 +412,55 @@
         $.ajaxSetup({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
         });
-        $(document).ready(function(){
-            $("#cep").on('blur', function()
-            {
+        $(document).ready(function() {
+
+            $("#cep").on('blur', function () {
 
                 value = $(this).val();
 
-                $.post("/alunos/cep", {cep:value}, function(data)
-                {
+                $.post("/alunos/cep", {cep: value}, function (data) {
                     $("#rua").val('');
                     $("#bairro").val('');
                     $("#cidade").val('');
                     $("#estado").val('');
-                    if (data.sucesso != "0")
-                    {
+                    if (data.sucesso != "0") {
                         $("#rua").val(data.rua);
                         $("#bairro").val(data.bairro);
                         $("#cidade").val(data.cidade);
                         $("#estado").val(data.estado);
                         $('#numero').focus();
                     }
-                    else{
+                    else {
                         alert('Cep não localizado!');
                     }
                 }, 'json');
 
             });
 
-            $("#dtnasc").on('blur', function() {
+            //noinspection JSJQueryEfficiency
+            $("#dtnasc").on('blur', function () {
                 var nasc = $(this).val();
                 var partes = nasc.split("/");
-                var junta = partes[0]+"-"+(partes[1]-1)+"-"+partes[2];
+                var junta = partes[0] + "-" + (partes[1] - 1) + "-" + partes[2];
                 var atual = new Date();
                 var mesatual = atual.getMonth();
                 //alert(mesatual+" - "+ (partes[1]-1));
-                if (parseInt(mesatual) == parseInt((partes[1]-1))){
-                    $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' ano(s)');
+                if (parseInt(mesatual) == parseInt((partes[1] - 1))) {
+                    $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2]) + ' ano(s)');
                 }
-                else
-                {
-                    if ((partes[1]-1) > mesatual)
-                    {
-                        var diferenca = (partes[1]-1) - mesatual;
+                else {
+                    if ((partes[1] - 1) > mesatual) {
+                        var diferenca = (partes[1] - 1) - mesatual;
                     }
-                    else
-                    {
-                        var diferenca = mesatual - (partes[1]-1);
+                    else {
+                        var diferenca = mesatual - (partes[1] - 1);
                     }
 
-                    if(diferenca > 1)
-                    {
-                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' anos e '+diferenca+' meses');
+                    if (diferenca > 1) {
+                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2]) + ' anos e ' + diferenca + ' meses');
                     }
-                    else
-                    {
-                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2])+' anos e '+diferenca+' mês');
+                    else {
+                        $('#idade').val(calculateAge(partes[0], partes[1] - 1, partes[2]) + ' anos e ' + diferenca + ' mês');
                     }
                 }
 
@@ -469,77 +468,39 @@
 
             });
 
-            $("#reacao").click(function(evento){
-                if ($("#reacao").is(':checked')){
+            $("#reacao").click(function (evento) {
+                if ($("#reacao").is(':checked')) {
                     $("#relmed").css("display", "block");
-                }else{
+                } else {
                     $("#relmed").css("display", "none");
                 }
             });
 
+            //noinspection JSJQueryEfficiency
             $("#dtnasc").datepicker({
-                showWeek: false,
-                firstDay: 0,
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "dd/mm/yy",
-                dayNames: ["Domingo",
-                    "Segunda-Feira",
-                    "Terça-Feira",
-                    "Quarta-Feira",
-                    "Quinta-Feira",
-                    "Sexta-Feira",
-                    "Sábado"],
-                dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
-                monthNames: ["Janeiro",
-                    "Fevereiro",
-                    "Março",
-                    "Abril",
-                    "Maio",
-                    "Junho",
-                    "Julho",
-                    "Agosto",
-                    "Setembro",
-                    "Outubro",
-                    "Novembro",
-                    "Dezembro"],
-                monthNamesShort: ["Jan",
-                    "Fev",
-                    "Mar",
-                    "Abr",
-                    "Mai",
-                    "Jun",
-                    "Jul",
-                    "Ago",
-                    "Set",
-                    "Out",
-                    "Nov",
-                    "Dez"],
-                showButtonPanel: true,
-                currentText: "Hoje",
-                closeText: "Fechar",
-                weekHeader: "#",
-                onClose: function() {
-                    $(this).trigger('blur');
-                }
-            });
+                format: "dd/mm/yyyy",
+                language: "pt-BR",
+                autoclose:false,
+                clearBtn:true,
+                todayHighlight:true
+                });
 
-        });
-        function calculateAge(dia, mes, ano) {
-            var dob = new Date(ano, mes, dia);
-            var currentDate = new Date();
-            var age = currentDate.getFullYear() - dob.getFullYear();
-            if(currentDate.getMonth() < dob.getMonth()) {
-                alert('getMonth');
-                age--;
-            }else if(currentDate.getMonth() == dob.getMonth()){
-                if(currentDate.getDate() < dob.getDate()){
-                    alert('getDate');
+
+            function calculateAge(dia, mes, ano) {
+                var dob = new Date(ano, mes, dia);
+                var currentDate = new Date();
+                var age = currentDate.getFullYear() - dob.getFullYear();
+                if (currentDate.getMonth() < dob.getMonth()) {
+                    alert('getMonth');
                     age--;
+                } else if (currentDate.getMonth() == dob.getMonth()) {
+                    if (currentDate.getDate() < dob.getDate()) {
+                        alert('getDate');
+                        age--;
+                    }
                 }
+                return age;
             }
-            return age;
-        }
-
+        });
     </script>
 @stop

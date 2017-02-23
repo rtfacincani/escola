@@ -97,3 +97,54 @@ var cep = 'cep='+ $('#cep').val();
 
 \Carbon\Carbon::setToStringFormat('Y.m.d')
 {!! Form::date('DataNascimento',null,array('required','class' => 'form-control','placeholder'=>'Nascimento','id'=>'dtnasc','value'=>"{{old('DataNascimento')}}")) !!}
+
+
+
+$("#dtnasci").datepicker({
+                showWeek: false,
+                firstDay: 0,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "dd/mm/yy",
+                dayNames: ["Domingo",
+                    "Segunda-Feira",
+                    "Terça-Feira",
+                    "Quarta-Feira",
+                    "Quinta-Feira",
+                    "Sexta-Feira",
+                    "Sábado"],
+                dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
+                monthNames: ["Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"],
+                monthNamesShort: ["Jan",
+                    "Fev",
+                    "Mar",
+                    "Abr",
+                    "Mai",
+                    "Jun",
+                    "Jul",
+                    "Ago",
+                    "Set",
+                    "Out",
+                    "Nov",
+                    "Dez"],
+                showButtonPanel: true,
+                currentText: "Hoje",
+                closeText: "Fechar",
+                weekHeader: "#",
+                onClose: function() {
+                    $(this).trigger('blur');
+                }
+            });
+
+        });
