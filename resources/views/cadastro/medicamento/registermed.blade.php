@@ -8,9 +8,14 @@
                     <div class="panel panel-body">
                          {!! Form::open(array('route'=>'med.store','method'=>'POST')) !!}
                     <!-- <form action="/storemed" method="post" role="form"> -->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group{{ $errors->has('Nome') ? ' has-error' : '' }}">
-                                <input type="text" name="Nome" id="nome_med" class="form-control" id="info" placeholder="Nome do Medicamento" value="{{old('Nome')}}" required="required"/>
+                                <div class="input-group nome_med">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-medkit"></span>
+                                    </div>
+                                    <input type="text" name="Nome" id="nome_med" class="form-control" id="info" placeholder="Nome do Medicamento" value="{{old('Nome')}}" required="required"/>
+                                </div>
                             </div>
                             @if ($errors->has('Nome'))
                                 <span class="help-block">

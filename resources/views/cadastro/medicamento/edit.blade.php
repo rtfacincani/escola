@@ -9,11 +9,14 @@
 
                         {{ Form::model($med, array('route' => array('med.update', $med->id), 'method' => 'PUT')) }}
                                 <!-- <form action="/storemed" method="post" role="form"> -->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group{{ $errors->has('Nome') ? ' has-error' : '' }}">
-
-                                {{ Form::text('Nome', null, array('class' => 'form-control')) }}
-
+                                <div class="input-group nome">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-medkit"></span>
+                                    </div>
+                                    {{ Form::text('Nome', null, array('class' => 'form-control')) }}
+                                </div>
                             </div>
                             @if ($errors->has('Nome'))
                                 <span class="help-block">

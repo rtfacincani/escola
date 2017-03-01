@@ -8,7 +8,12 @@
 		<meta content="" name="description"/>
 		<meta content="" name="author"/>
 		<link rel="stylesheet" href="{{ asset("assets/stylesheets/styles.css") }}" />
-	    <script src="{{ asset("js/jquery-3.1.1.min.js") }}"></script>
+	    <script src="{{ asset("js/jquery.min.js") }}" type="text/javascript"></script>
+	    <script src="{{ asset("js/jquery.filer.min.js") }}" type="text/javascript"></script>
+	    <script src="{{ asset("assets/scripts/jquery.filer.min.js") }}"></script>
+	    
+	    <!--<script src="{{ asset("assets/scripts/jquery.mask.min.js") }}"></script> -->
+
 		<script src="{{ asset("assets/scripts/frontend.js") }}" type="text/javascript"></script>
 
 		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
