@@ -50,6 +50,7 @@ Route::post('/storemed','medicamentoController@store');
 
 
 
+
 Route::get('/charts', function()
 {
     return View::make('mcharts');
